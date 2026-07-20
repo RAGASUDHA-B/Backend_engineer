@@ -15,3 +15,10 @@ class Student:
         print("Age:",self.age)
         print("Marks:",self.marks)
         print("Average: ",self.calculate_average())
+    def to_dict(self):
+        return {
+        "id": self.student_id,
+        "name": self.name,
+        "age": self.age,
+        "marks": self.marks
+    }

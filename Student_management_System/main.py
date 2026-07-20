@@ -92,3 +92,4 @@ while True:
     else:
 
         print("Invalid choice")
+print(student.to_dict())

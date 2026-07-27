@@ -1,9 +1,11 @@
 const express=require("express");
-require("dotenv").congig();
+const authRoutes=require("./routes/authRoutes");
+require("dotenv").config();
 const connectDB=require("./config/db");
 const app=express()
 connectDB();
 app.use(express.json());
+app.use("/api/auth",authRoutes);
 app.get("/",(req,res)=>{
     res.send("Welcome to assetFlow backend!");
 });

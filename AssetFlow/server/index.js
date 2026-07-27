@@ -1,3 +1,6 @@
+const dns = require("dns");
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const express=require("express");
 const authRoutes=require("./routes/authRoutes");
 require("dotenv").config();
@@ -12,4 +15,5 @@ app.get("/",(req,res)=>{
 const PORT=process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log(`server running on port ${PORT}`);
+    console.log(process.env.MONGO_URI);
 });

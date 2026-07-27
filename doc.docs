@@ -153,3 +153,57 @@ Database Connected
 
 Server Starts Listening
 
+
+PHASE 2:
+    Folder architecture,mvc pattern,user model 
+
+    1.create folder structure:
+       server/
+       config/ -> db,jwt,cloudinary,mail
+       controllers/ (brain) -> register user,validate,hash password,save user,return response
+       models/ -> user,asset,department,booking,maintenance
+       routes/ - only receives http requests POST/register -> registerController
+       middleware/ (runs before controllers) user -> authentication middleware->authorized -> controller
+       services/ (reusable logic) send email,generate qrcode ,notification,reports
+  
+       utils/ (helper functions) generate assset tag -> af-0001
+user.js:
+   trim:
+      ex:  1   sudha  ->1 sudha (spaces are removed)
+   lowercase:
+      user enters :aBDC@gmail.com db store it as "abdc@gmail.com   
+   default: 
+      database automatically stores emoloyee
+   ref:
+     department 
+       user->belongs to -> department collection
+   timestamps:
+      created at,updated at   
+
+MODULE 5: Express routes?
+   http://localhost:5000/register
+     routes/
+          authRoutes.js
+          userRoutes.js
+          assetRoutes.js
+          bookingRoutes.js
+
+MODULE 6: Controllers (once the route receives a request where should the logic go? )
+    contains business logic
+
+MODULE 7: First CRUD api   
+MODULE 8:Postman
+MODULE 9: CRUD
+MODULE 10:SECURITY (bycrypt)hashing
+MODULE 11 jwt   (login->jwt token->authorization header -> protected apis)
+
+
+MODULE 5:(EXPRESS ROUTING)
+    const router=express.Router() creates mini express application
+     router.get() instead of app.get(): app used by main server,router for small module
+     connect route to expres:
+     index.js
+         const authRoutes=require("./routes/authRoutes");
+         app.use("/api/auth",authRoutes);
+     routes/authRoutes.js:
+          module.exports=router;

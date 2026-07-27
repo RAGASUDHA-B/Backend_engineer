@@ -207,3 +207,56 @@ MODULE 5:(EXPRESS ROUTING)
          app.use("/api/auth",authRoutes);
      routes/authRoutes.js:
           module.exports=router;
+
+
+error faced:
+   node index.js
+     server running on port 5000
+     database connection failed
+     querysrv econnrefused
+     _mongodb._tcp.cluster0.uudzqk1.mongodb.net
+
+     mongodb is working ,code also working 
+       when run the code :
+          mongoose.connect(process.env.MONGO_URI)
+           nodejs does not connect to mongodb immediately 
+              application->read connection string->find mongodb server->dns lookup -> connect through internet -> authenticate user -> open db
+               from mongodb uri "cluster0.uudzqk1.mongodb.net" is the cluster hostname like google.com
+               srv means :
+                2 type of mongodb connection:
+                   mongodb://192.168.1.20:27017 (no dns lookup is needed)
+                   mongodb+srv://cluster.mongodb.net (dns lookup mandatory)
+
+                   dns lookup means resolve srv record ( store server names,ports,priorities,weights)
+
+                   quweysrv error (it hadnt reached mongodb yet)
+                   econnrefused (dns server refused or didnt answer the request)  
+                         wrong password,database missing ,internet connection
+                  first-> wrong password
+                  Checking DNS Using nslookup:nslookup -type=SRV _mongodb._tcp.cluster0.uudzqk1.mongodb.net
+                     outputL:shared 00,shard 01 shard02 this proved google dns works correctly.
+
+                     important conclusion:
+                        internet working,dns working,mongodb working,cluster exists
+                        then why node failing
+                     checking nodedns:
+                      output 127.0.0.1
+                          called localhost (my own computer) ""instead of asking google node was asking its own computer for mongodb information
+                          But Node reported:
+
+127.0.0.1
+
+That means something on your machine caused Node to use localhost for DNS resolution.
+
+Possible causes include:
+
+a local DNS proxy or resolver,
+software that intercepts DNS,
+an environment or runtime configuration,
+or another networking tool.
+
+
+""""Your computer does not know where MongoDB Atlas servers are, so it asks a DNS server (such as Google DNS), which keeps DNS records for millions of websites and services, including MongoDB Atlas.""""
+
+
+                

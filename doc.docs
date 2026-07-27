@@ -92,3 +92,64 @@ day 2:
     "/" url path
     req => keep the browser info
     res => keep the server sent info
+
+
+node.js =>js
+mongodb=>bson
+
+translator is mongoose
+      mongoose is a library that helps node.js communicate with mongodb
+
+odm is object document mapper
+   object:
+     const user={name:"sudha"} js
+   document:
+     { "name":"sudha"} mongodb
+    mapper: mongoose (converts data mongo to js or viceversa)
+why dotenv:
+   database password should never be written directly in code
+       mongoose.connect("mongodb+srv//admin12345@cluster...")
+             everyone see your password
+       use :
+         .env:
+            mongouri=...
+       now code use like "process.env.mongouri
+
+config folder:
+   professional projects keep configuration separate.
+    we will have:
+      mongodb,jwt,cloudinary,email,redis
+node index.js
+
+↓
+
+Node starts
+
+↓
+
+Loads Express
+
+↓
+
+Loads dotenv
+
+↓
+
+Loads db.js
+
+↓
+
+Mongoose tries to connect
+
+↓
+
+MongoDB accepts
+
+↓
+
+Database Connected
+
+↓
+
+Server Starts Listening
+

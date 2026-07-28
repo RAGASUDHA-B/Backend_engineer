@@ -1,14 +1,23 @@
-const loginUser=(req,res)=>{
-    res.send("Login successfull");
-};
-const registerUser=(req,res)=>{
-    res.send("Register Successfull");
+const User=require("../models/User");
+const registerUser=async(req,res)=>{
+    try{
+        const {name,email,password}=req.body;
+        const user=await User.create({
+            name,email,password
+        });
+        res.status(201).json({
+            success:true,
+            message:"User registered successfully",
+            user
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
+        });
+    }
 };
 
-const getProfile=(req,res)=>{
-    res.send("User profile");
-};
-
-module.exports={
-    loginUser,registerUser,getProfile
+module.exports={registerUser
 };

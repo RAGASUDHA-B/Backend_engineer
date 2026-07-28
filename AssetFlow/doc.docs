@@ -259,4 +259,13 @@ or another networking tool.
 """"Your computer does not know where MongoDB Atlas servers are, so it asks a DNS server (such as Google DNS), which keeps DNS records for millions of websites and services, including MongoDB Atlas.""""
 
 
-                
+Module 6 controller :
+    is js file that contains the logic for handiling requests
+    
+
+
+request adn response:
+   req.body,req.query,req.params,req.headers,req.method,req.url
+   res.send,res.json,res.status,res.redirect,res.end
+
+module 7 -crud api(production style)

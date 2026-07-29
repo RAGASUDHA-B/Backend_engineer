@@ -1,23 +1,10 @@
 const User=require("../models/User");
 const registerUser=async(req,res)=>{
-    try{
-        const {name,email,password}=req.body;
-        const user=await User.create({
-            name,email,password
-        });
-        res.status(201).json({
-            success:true,
-            message:"User registered successfully",
-            user
-        });
-    }
-    catch(error){
-        res.status(500).json({
-            success:false,
-            message:error.message
-        });
-    }
+    console.log(req.body);
+    res.json({
+        message:"Controller working"
+    });
 };
-
-module.exports={registerUser
+module.exports={
+    registerUser
 };

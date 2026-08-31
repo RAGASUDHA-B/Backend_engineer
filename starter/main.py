@@ -5,7 +5,6 @@ class Item(BaseModel):
     name:str
     price:float
 items={}
-
 @app.post("/items")
 async def create_item(item:Item):
     item_id=len(items)+1
@@ -28,3 +27,4 @@ async def delete_item(item_id:int):
         deleted_item=items.pop(item_id)
         return{"message":"deleted item","item":deleted_item}
     return{"error":"item not found"}
+

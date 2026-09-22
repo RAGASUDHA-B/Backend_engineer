@@ -52,6 +52,7 @@ const getAllocations = async (req, res) => {
         });
     }
 };
+const retrunAsset=as
 const returnAsset = async (req, res) => {
     try {
         const allocation = await Allocation.findById(req.params.id);

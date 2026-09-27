@@ -162,5 +162,19 @@ def get_categories(db=Depends(get_db)):
 
 
 
+#task-categories
+@app.post("/task-categories")
+def assign_category(
+    data:TaskCategoryCreate,
+    db=Depends(get_db)
+):
+    new_link=Taskcategory(
+        task_id=data.task_id,
+        category_id=data.category_id
+        )
+    db.add(new_link)
+    db.commit()
+    db.refresh(new_link)
+    return new_link
 
 

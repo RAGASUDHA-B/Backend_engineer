@@ -163,6 +163,18 @@ def get_categories(db=Depends(get_db)):
 
 
 #task-categories
+@app.get("/tasks/{task_id}/categories")
+def get_task_categories(task_id: int, db=Depends(get_db)):
+    task = db.query(Task).filter(
+        Task.task_id == task_id
+    ).first()
+    if task is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Task not found"
+        )
+    return task.categories
+
 @app.post("/task-categories")
 def assign_category(
     data:TaskCategoryCreate,

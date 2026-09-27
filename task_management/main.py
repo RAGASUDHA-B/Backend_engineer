@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Depends
+from fastapi import FastAPI,Depends,HTTPException
 from database import engine,Base,SessionLocal
 from models import Student,Task,Category,Taskcategory
 from schemas import StudentCreate
@@ -31,9 +31,17 @@ def create_students(student:StudentCreate,db=Depends(get_db)):
 
     return new_student
 
+@app.get("/students")
+def get_students(db=Depends(get_db)):
+    return db.query(Student).all()
 
+@app.get("/students/{student_id}")
+def get_students(student_id:int,db=Depends(get_db)):
+    student=db.query(Student).filter(Student.student_id==student_id).first()
+    if student is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Stduent not found"
+        )
+    return student
 
-
-
-
-        

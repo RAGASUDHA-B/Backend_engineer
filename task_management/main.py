@@ -45,3 +45,35 @@ def get_students(student_id:int,db=Depends(get_db)):
         )
     return student
 
+@app.put("/students/{student_id}")
+def update_student(
+    student_id:int,
+    student_data:StudentCreate,
+    db=Depends(get_db)
+):
+    student=db.query(Student.student_id==student_id).first()
+    if student is None:
+        raise HTTPException(
+            status_code=404,
+            detail="student not found"
+        )
+    student.name=student_data.name
+    student.email=student_data.email
+    student.phone_no=student_data.phone_no
+
+    db.commit()
+    db.refresh(Student)
+
+    return student
+
+@app.delete("/students/{student_id}")
+def delete_student(student_id:int,db=Depends(get_db)):
+    student=db.query(Student).filter(Student.student_id==student_id).first()
+    if student is None:
+        raise HTTPException(
+            status_code=404,
+            detail="student not found"
+        )
+    db.delete(student)
+    db.commit()
+    return{"message":"student deleted successfully"}

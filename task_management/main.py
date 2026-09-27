@@ -148,3 +148,19 @@ def delete_task(task_id:int,db=Depends(get_db)):
 
 
 #category
+@app.post("/categories")
+def create_category(category:CategoryCreate,db=Depends(get_db)):
+    new_category=Category(category_name=category.category_name)
+    db.add(new_category)
+    db.commit()
+    db.refresh(new_category)
+    return new_category
+
+@app.get("/categories")
+def get_categories(db=Depends(get_db)):
+    return db.query(Category).all()
+
+
+
+
+
